@@ -1,25 +1,17 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-
-class Item:
-    def __init__(self, name, type, description):
-        self.name = name
-        self.type = type
-        self.description = description
-
-items = [
-    Item('OneTeebs', 'tech', 'hold tonnes of data'),
-    Item('Studler', 'stationery', 'mightier than a sword'),
-    Item('Klipz', 'personal care', 'cuts both ways'),
-
-]
+from .models import Item
 
 # Create your views here.
 def home(request):
-    return HttpResponse('<h1>Hello<h1>')
+    return render(request, 'home.html')
 
 def about(request):
     return render(request, 'about.html')
 
 def items_index(request):
+    items = Item.objects.order_by('id')
     return render(request, 'items/index.html', { 'items': items })
+
+def items_detail(request, item_id):
+    item = Item.objects.get(id=item_id)
+    return render(request, 'items/detail.html', { 'item': item })
