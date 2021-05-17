@@ -1,6 +1,7 @@
-from django.shortcuts import render
-from .models import Plant
 from datetime import date
+from django.shortcuts import render
+from django.views.generic import CreateView
+from .models import Plant
 
 # Create your views here.
 def home(request):
@@ -20,3 +21,7 @@ def plants_index(request):
 def plants_detail(request, plant_id):
     plant = Plant.objects.get(id=plant_id)
     return render(request, 'plants/detail.html', { 'plant': plant })
+
+class PlantCreate(CreateView):
+    model = Plant
+    fields = '__all__'
