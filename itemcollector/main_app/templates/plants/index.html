@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Plant List</h1>
+
+{% for plant in plants %}
+  <div class="card">
+    <a href="{% url 'detail' plant.id %}">
+      <div class="card-content">
+        <span class="card-title">{{ plant.alias }}</span>
+        <p>Plant Name: {{ plant.name }}</p>
+        <p>Location: {{ plant.type }}</p>
+        <p>Days since water: {{ plant.days }} </p>
+        {% if plant.days > plant.water_interval %}
+          <p>Status: Thirsty</p>
+        {% else %}
+          <p>Status: All Ok</p>
+        {% endif %}
+      </div>
+    </a>
+  </div>
+{% endfor %}
+
+{% endblock %}

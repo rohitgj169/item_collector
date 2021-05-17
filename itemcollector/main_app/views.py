@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from .models import Item
+from .models import Plant
+from datetime import date
 
 # Create your views here.
 def home(request):
@@ -8,10 +9,14 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
-def items_index(request):
-    items = Item.objects.order_by('id')
-    return render(request, 'items/index.html', { 'items': items })
+def plants_index(request):
+    plants = Plant.objects.order_by('id')
+    current_date = date.today()
+    for plant in plants:
+        days_since = current_date - plant.date_watered
+        plant.days = days_since.days
+    return render(request, 'plants/index.html', { 'plants': plants})
 
-def items_detail(request, item_id):
-    item = Item.objects.get(id=item_id)
-    return render(request, 'items/detail.html', { 'item': item })
+def plants_detail(request, plant_id):
+    plant = Plant.objects.get(id=plant_id)
+    return render(request, 'plants/detail.html', { 'plant': plant })
