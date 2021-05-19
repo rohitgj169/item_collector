@@ -7,9 +7,9 @@
 <h5>Are you sure you want to delete <span>{{ object.alias }}</span>?</h5>
 
 <form action="" method="POST">
-    {% csrf_token %}
-    <input type="submit" value="Yes - Delete" class="btn">
-    <a href="{% url 'detail' plant.id %}">Cancel</a>
-  </form>
+  {% csrf_token %}
+  <input type="submit" value="Yes - Delete" class="btn">
+  <a href="{% url 'detail' object.id %}">Cancel</a>
+</form>
 
 {% endblock %}

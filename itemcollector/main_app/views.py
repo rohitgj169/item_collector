@@ -1,7 +1,7 @@
 from datetime import date
 from django.shortcuts import render, redirect
-from django.views.generic import CreateView, UpdateView, DeleteView
-from .models import Fertilizer, Plant, PlantForm, PlantEditForm
+from django.views.generic import CreateView, UpdateView, DeleteView, ListView, DetailView
+from .models import Plant, PlantForm, PlantEditForm, Pot
 from .forms import FertilizerForm
 
 # Create your views here.
@@ -46,3 +46,21 @@ class PlantUpdate(UpdateView):
 class PlantDelete(DeleteView):
     model = Plant
     success_url = '/plants/'
+
+class PotList(ListView):
+  model = Pot
+
+class PotDetail(DetailView):
+  model = Pot
+
+class PotCreate(CreateView):
+  model = Pot
+  fields = '__all__'
+
+class PotUpdate(UpdateView):
+  model = Pot
+  fields = ['name', 'color']
+
+class PotDelete(DeleteView):
+  model = Pot
+  success_url = '/pots/'
