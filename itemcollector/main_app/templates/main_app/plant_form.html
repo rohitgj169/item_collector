@@ -2,10 +2,16 @@
 
 {% block content %}
 
+{% if object %}
+    <h1>Edit <span>{{ object.alias }}</span></h1>
+{% else %}
+    <h1>Add Plant</h1>
+{% endif %}
+
 <form action="" method="POST">
     {% csrf_token %}
-    <table>
-        {{ form.as_table }}
+    <table class="highlight">
+        {{ form }}
     </table>
     <input type="submit" value="Submit", class="btn">
 </form>
