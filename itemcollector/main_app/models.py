@@ -21,7 +21,7 @@ class Pot(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('pot_detail', kwargs = {'pk' : self.id})
+        return reverse('pots_detail', kwargs = {'pk' : self.id})
 
 class Plant(models.Model):
     alias= models.CharField(max_length=100)
