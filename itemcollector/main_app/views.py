@@ -21,10 +21,12 @@ def plants_index(request):
 
 def plants_detail(request, plant_id):
     plant = Plant.objects.get(id=plant_id)
+    pots_not_in_use = Pot.objects.exclude(id__in = plant.pots.all().values_list('id'))
     fertilizer_form = FertilizerForm()
     return render(request, 'plants/detail.html', { 
         'plant': plant,
-        'fertilizer_form': fertilizer_form
+        'fertilizer_form': fertilizer_form,
+        'pots': pots_not_in_use
     })
 
 def add_fertilizer(request, plant_id):
@@ -33,6 +35,14 @@ def add_fertilizer(request, plant_id):
         new_entry = form.save(commit = False)
         new_entry.plant_id = plant_id
         new_entry.save()
+    return redirect('detail', plant_id = plant_id)
+
+def assoc_pot(request, plant_id, pot_id):
+    Plant.objects.get(id = plant_id).pots.add(pot_id)
+    return redirect('detail', plant_id = plant_id)
+
+def remove_pot(request, plant_id, pot_id):
+    Plant.objects.get(id = plant_id).pots.remove(pot_id)
     return redirect('detail', plant_id = plant_id)
 
 class PlantCreate(CreateView):
