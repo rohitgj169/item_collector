@@ -16,5 +16,6 @@ urlpatterns = [
     path('pots/<int:pk>/', views.PotDetail.as_view(), name = 'pots_detail'),
     path('pots/create/', views.PotCreate.as_view(), name = 'pots_create'),
     path('pots/<int:pk>/update/', views.PotUpdate.as_view(), name = 'pots_update'),
-    path('pots/<int:pk>/delete/', views.PotDelete.as_view(), name = 'pots_delete')
+    path('pots/<int:pk>/delete/', views.PotDelete.as_view(), name = 'pots_delete'),
+    path('accounts/signup', views.SignUp.as_view(), name = 'signup'),
 ]

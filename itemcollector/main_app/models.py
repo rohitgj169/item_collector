@@ -1,6 +1,7 @@
 from django import forms
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 # Create your models here.
 
 TYPES = (
@@ -16,6 +17,7 @@ class DateInput(forms.DateInput):
 class Pot(models.Model):
     name = models.CharField(max_length = 100)
     color = models.CharField(max_length = 20)
+    user = models.ForeignKey(User, on_delete= models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -34,6 +36,7 @@ class Plant(models.Model):
     water_interval = models.IntegerField()
     date_watered = models.DateField()
     pots = models.ManyToManyField(Pot)
+    user = models.ForeignKey(User, on_delete= models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -44,7 +47,7 @@ class Plant(models.Model):
 class PlantForm(forms.ModelForm):
     class Meta:
         model = Plant
-        fields = '__all__'
+        fields = ['alias', 'name', 'type', 'sun', 'water', 'humidity', 'water_interval', 'date_watered', 'description']
         widgets = {
             'date_watered': DateInput()
         }
